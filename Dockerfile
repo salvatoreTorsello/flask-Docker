@@ -15,7 +15,6 @@ RUN	apt-get install python3 -y && \
 
 RUN pip install pipenv
 
-WORKDIR /myApp
 RUN python3 -m venv venv
 RUN . venv/bin/activate
 RUN pip install Flask
@@ -33,14 +32,13 @@ RUN npm install -g @angular/cli
 RUN pip install sqlalchemy psycopg2-binary
 
 # Start developing creating a template structure
-WORKDIR /myApps
-RUN mkdir appTemplate
-WORKDIR /appTemplate
+WORKDIR /myApps/appTemplate
 RUN mkdir database && mkdir backend && mkdir frontend && mkdir static && mkdir templates
-COPY /.gitignoreTemplate /appTemplate/.gitignore
-COPY /mainTemplate.py /appTemplate/main.py
+COPY /.gitignoreTemplate /myApps/appTemplate/.gitignore
+COPY /mainTemplate.py /myApps/appTemplate/main.py
 
 RUN apt-get install -y git
 RUN git init
 RUN git add .
 
+WORKDIR /myApps
